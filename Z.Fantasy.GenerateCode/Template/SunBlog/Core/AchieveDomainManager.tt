@@ -1,0 +1,21 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using Z.Fantasy.Core.DomainServiceRegister.Domain;
+
+namespace <#= data.CoreNamespace#>.<#= data.ModelName#>Module.DomainManager;
+
+/// <summary>
+/// <#= data.TableNameDes#>领域服务
+/// </summary>
+public class <#= data.ModelName#>Manager(IServiceProvider serviceProvider)
+    : <#= data.IdType == "int" ? "BusinessIntDomainService" : "BusinessDomainService" #><<#= data.ModelName#>>(serviceProvider), I<#= data.ModelName#>Manager
+{
+    public override async Task ValidateOnCreateOrUpdate(<#= data.ModelName#> entity)
+    {
+        await Task.CompletedTask;
+    }
+
+}
+

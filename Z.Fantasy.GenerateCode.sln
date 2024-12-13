@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Fantasy.GenerateCode", "Z.Fantasy.GenerateCode\Z.Fantasy.GenerateCode.csproj", "{A64E3414-BD3C-4AE6-8610-A0376D13A387}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A64E3414-BD3C-4AE6-8610-A0376D13A387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64E3414-BD3C-4AE6-8610-A0376D13A387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64E3414-BD3C-4AE6-8610-A0376D13A387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64E3414-BD3C-4AE6-8610-A0376D13A387}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA59741B-24CC-4344-A50C-36AAC38D5B14}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,95 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Z.Fantasy.Core.DomainServiceRegister;
+using Z.SunBlog.Core.SharedDto;
+using <#= data.CoreNamespace #>.<#= data.ModelName #>Module.DomainManager;
+using <#= data.AppNamespace #>.<#= data.ModelName #>Module.Dto;
+using <#= data.CoreNamespace #>.<#= data.ModelName #>Module;
+
+namespace <#= data.AppNamespace #>.<#= data.ModelName #>Module;
+
+/// <summary>
+/// <#= data.TableNameDes #>应用服务
+/// </summary>
+public class <#= data.ModelName #>AppService : ApplicationService, I<#= data.ModelName #>AppService
+{
+    private readonly I<#= data.ModelName #>Manager _<#= data.CamelModelName #>Manager;
+    public <#= data.ModelName #>AppService(
+        IServiceProvider serviceProvider, I<#= data.ModelName #>Manager <#= data.CamelModelName #>Manager) : base(serviceProvider)
+    {
+        _<#= data.CamelModelName #>Manager = <#= data.CamelModelName #>Manager;
+    }
+
+    /// <summary>
+    /// 添加修改
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
+    public async Task CreateOrUpdate(CreateOrUpdate<#= data.ModelName #>Input dto)
+    {
+        var isUpdated = <#= data.IdType switch
+                            {
+                                "Guid" => "dto.Id != null &&dto.Id != Guid.Empty;",
+                                "int" => "dto.Id > 0;",
+                                _ => "false"
+                                } #>
+
+        if (isUpdated)
+        {
+            await Update(dto);
+            return;
+        }
+
+        await Create(dto);
+    }
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
+    [HttpDelete]
+    public async Task DeleteAsync(KeyDto dto)
+    {
+        await _<#= data.CamelModelName #>Manager.DeleteAsync(<#=
+                data.IdType == "int" ? "dto.NumberId" : "dto.Id" #>);
+    }
+
+    /// <summary>
+    /// 添加<#= data.TableNameDes #>
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
+    private async Task Create(CreateOrUpdate<#= data.ModelName #>Input dto)
+    {
+        var <#= data.CamelModelName #> = ObjectMapper.Map<<#= data.ModelName #>>(dto);
+        <#= data.IdType switch
+           {
+               "Guid" => $"{data.CamelModelName}.Id = Guid.NewGuid();",
+               _ => ""
+           } #>
+        await _<#= data.CamelModelName #>Manager.CreateAsync(<#= data.CamelModelName #>);
+    }
+
+    /// <summary>
+    /// 更新<#= data.TableNameDes #>
+    /// </summary>
+    /// <returns></returns>
+    private async Task Update(CreateOrUpdate<#= data.ModelName #>Input dto)
+    {
+        var <#= data.CamelModelName #> = await _<#= data.CamelModelName #>Manager.FindByIdAsync(<#= data.IdType switch
+           {
+               "Guid" => $"dto.Id!.Value",
+               _ => "dto.Id"
+           } #>);
+
+        ObjectMapper.Map(dto, <#= data.CamelModelName #>);
+
+        await _<#= data.CamelModelName #>Manager.UpdateAsync(<#= data.CamelModelName #>!);
+    }
+
+}

@@ -1,0 +1,63 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Z.Fantasy.GenerateCode.Models" #>
+using System.ComponentModel.DataAnnotations;
+using Z.Foundation.Core.Entities.Auditing;
+
+namespace <#= data.AppNamespace#>.<#= data.ModelName#>Module.Dto;
+
+/// <summary>
+/// <#= data.TableNameDes #>Input
+/// </summary>
+public class CreateOrUpdate<#= data.ModelName#>Input
+{
+<#
+foreach (var item in data.FieldList)
+{
+#>
+<#
+    var remark = "";
+    if (!string.IsNullOrWhiteSpace(item.Remark))
+    {
+        remark = $"（{item.Remark}）";
+    }
+#>
+<#
+    var column = "";
+    if ((new[] { "varchar", "nvarchar" }).Contains(item.Type.ToLower()) && !string.IsNullOrWhiteSpace(item.Length))
+    {
+        column = $"[MaxLength({item.Length}, ErrorMessage = \"{item.NameDes}长度不能超过{item.Length}个字符\")]";
+    }
+#>
+<#
+    if (!(new[] { "varchar", "nvarchar" }).Contains(item.Type.ToLower()) && item.IsNull == "否")
+    {
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            column += $"[Required(ErrorMessage = \"{item.NameDes}为必填项\")]";
+        }
+        else
+        {
+            column += $"\n[Required(ErrorMessage = \"{item.NameDes}为必填项\")]";
+        }
+        
+    }
+#>
+    /// <summary>
+    /// <#= item.NameDes + remark #>
+    /// </summary>
+<#
+        if (!string.IsNullOrWhiteSpace(column))
+        {
+#>
+    <#= column #>
+<#
+        }
+#>
+    public <#= item.CSharp #> <#= item.Name #> { get; set; }
+<#
+}
+#>
+}

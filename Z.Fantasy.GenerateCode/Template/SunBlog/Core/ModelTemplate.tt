@@ -1,0 +1,54 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Z.Fantasy.GenerateCode.Models" #>
+using System.ComponentModel.DataAnnotations;
+using Z.Foundation.Core.Entities.Auditing;
+
+namespace <#= data.CoreNamespace#>.<#= data.ModelName#>Module;
+
+/// <summary>
+/// <#= data.TableNameDes #>
+/// </summary>
+public class <#= data.ModelName #>  : FullAuditedEntity<<#= data.FieldList[0].CSharp #>>
+{
+<#
+foreach (var item in data.FieldList)
+{
+#>
+<#
+    var remark = "";
+    if (!string.IsNullOrWhiteSpace(item.Remark))
+    {
+        remark = $"（{item.Remark}）";
+    }
+#>
+<#
+    var column = "";
+    if ((new[] { "varchar", "nvarchar" }).Contains(item.Type.ToLower()) && !string.IsNullOrWhiteSpace(item.Length))
+    {
+        column = $"[MaxLength({item.Length})]";
+    }
+#>
+<#
+    if (item.Name.Trim().ToLower() != "id")
+    {
+#>
+    /// <summary>
+    /// <#= item.NameDes + remark #>
+    /// </summary>
+<#
+        if (!string.IsNullOrWhiteSpace(column))
+        {
+#>
+    <#= column #>
+<#
+        }
+#>
+    public <#= item.CSharp #> <#= item.Name #> { get; set; }
+<#
+    }
+}
+#>
+}

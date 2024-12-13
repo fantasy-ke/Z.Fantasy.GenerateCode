@@ -1,0 +1,32 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using Z.Fantasy.Core.DomainServiceRegister;
+using Z.SunBlog.Core.SharedDto;
+using <#= data.AppNamespace#>.<#= data.ModelName#>Module.Dto;
+
+namespace <#= data.AppNamespace#>.<#= data.ModelName#>Module;
+
+/// <summary>
+/// <#= data.TableNameDes#>应用服务接口
+/// </summary>
+public interface I<#= data.ModelName#>AppService : IApplicationService
+{
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
+    Task DeleteAsync(KeyDto dto);
+
+
+    /// <summary>
+    /// 创建修改
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
+    Task CreateOrUpdate(CreateOrUpdate<#= data.ModelName#>Input dto);
+}
+
