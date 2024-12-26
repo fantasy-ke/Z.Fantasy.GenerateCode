@@ -42,20 +42,25 @@ C# 代码生成器的主要目的是简化开发流程，减少重复性工作�
 
 ### 主页
 
-- ![image-20241226173118680](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20241226173118680.png)
+- ![image-20241226173118680](https://github.com/user-attachments/assets/d94bbbdf-f833-4410-ba8e-b0bced940ce4)
+
 
 ### 生成
 
 - 生成 导入 模板数据原
-  - ![image-20241226173140419](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20241226173140419.png)
+  - ![image-20241226173140419](https://github.com/user-attachments/assets/a5213dad-e18b-44f1-b90a-c30a55151bf5)
+
 
 - 打开生成目录
   - 可以看到生成的文件，以及项目机构。
-  - ![image-20241226173249653](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20241226173249653.png)
+  - ![image-20241226173249653](https://github.com/user-attachments/assets/46b54814-1c78-4bd2-95de-aa8550d41be0)
+
 
 ### 设置
 
-- 设置`Light` 跟`Dark`两种主题![image-20241226173149169](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20241226173149169.png)
+- 设置`Light` 跟`Dark`两种主题
+- ![image-20241226173149169](https://github.com/user-attachments/assets/f5ecea4c-d123-415e-acf2-cbca5283ee1d)
+
 
 ---
 
